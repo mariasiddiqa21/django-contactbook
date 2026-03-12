@@ -1,0 +1,47 @@
+{% extends "contacts/base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+
+<div class="card shadow-lg border-0 p-4 text-center">
+
+<h2>{{ contact.name }}</h2>
+
+<hr>
+
+<p>
+<i class="fa fa-phone"></i>
+<strong>Phone:</strong> {{ contact.phone }}
+</p>
+
+<p>
+<i class="fa fa-envelope"></i>
+<strong>Email:</strong> {{ contact.email }}
+</p>
+
+<p>
+<i class="fa fa-map-marker"></i>
+<strong>Address:</strong> {{ contact.address }}
+</p>
+
+<div class="mt-4">
+
+<a href="{% url 'edit' contact.id %}" class="btn btn-warning">
+Edit Contact
+</a>
+
+<a href="{% url 'delete' contact.id %}" class="btn btn-danger">
+Delete Contact
+</a>
+
+<a href="{% url 'contact_list' %}" class="btn btn-secondary">
+Back
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

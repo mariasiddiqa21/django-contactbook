@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Contact Book</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+body{
+background:#f4f7fe;
+font-family: 'Poppins', sans-serif;
+}
+
+/* Sidebar */
+
+.sidebar{
+height:100vh;
+width:220px;
+background:#4a6cf7;
+position:fixed;
+padding-top:30px;
+color:white;
+}
+
+.sidebar a{
+display:block;
+color:white;
+padding:12px 20px;
+text-decoration:none;
+}
+
+.sidebar a:hover{
+background:rgba(255,255,255,0.2);
+}
+
+/* Main area */
+
+.main{
+margin-left:220px;
+padding:30px;
+}
+
+/* Cards */
+
+.contact-card{
+border-radius:15px;
+transition:0.3s;
+}
+
+.contact-card:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Floating button */
+
+.floating-btn{
+position:fixed;
+bottom:30px;
+right:30px;
+border-radius:50%;
+width:60px;
+height:60px;
+font-size:24px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+<h4 class="text-center mb-4">📒 Contacts</h4>
+
+<a href="{% url 'contact_list' %}">
+<i class="fa fa-address-book"></i> All Contacts
+</a>
+
+<a href="{% url 'add_contact' %}">
+<i class="fa fa-user-plus"></i> Add Contact
+</a>
+
+</div>
+
+<!-- Main Content -->
+
+<div class="main">
+
+{% block content %}
+
+{% endblock %}
+
+</div>
+
+</body>
+</html>

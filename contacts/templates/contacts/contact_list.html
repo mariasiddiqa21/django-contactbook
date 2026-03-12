@@ -1,0 +1,64 @@
+{% extends "contacts/base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">My Contacts</h2>
+<p>Manage your contacts easily</p>
+
+<!-- Search bar -->
+
+<div class="mb-4">
+
+<input type="text" class="form-control" placeholder="Search contact...">
+
+</div>
+
+<div class="row">
+
+{% for contact in contacts %}
+
+<div class="col-md-4 mb-4">
+
+<div class="card contact-card p-3">
+
+<h5>{{ contact.name }}</h5>
+
+<p>
+<i class="fa fa-phone"></i> {{ contact.phone }}
+</p>
+
+<p>
+<i class="fa fa-envelope"></i> {{ contact.email }}
+</p>
+
+<div class="d-flex gap-2">
+
+<a href="{% url 'detail' contact.id %}" class="btn btn-primary btn-sm">
+View
+</a>
+
+<a href="{% url 'edit' contact.id %}" class="btn btn-warning btn-sm">
+Edit
+</a>
+
+<a href="{% url 'delete' contact.id %}" class="btn btn-danger btn-sm">
+Delete
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<!-- Floating Add Button -->
+
+<a href="{% url 'add_contact' %}" class="btn btn-primary floating-btn">
++
+</a>
+
+{% endblock %}

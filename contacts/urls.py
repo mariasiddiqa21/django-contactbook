@@ -1,0 +1,10 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.contact_list, name='contact_list'),
+    path('add/', views.add_contact, name='add_contact'),
+    path('contact/<int:id>/', views.contact_detail, name='detail'),
+    path('delete/<int:id>/', views.delete_contact, name='delete'),
+    path('update/<int:id>/', views.update_contact, name='edit'),
+]
