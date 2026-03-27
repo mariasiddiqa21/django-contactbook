@@ -6,59 +6,51 @@
 <p>Manage your contacts easily</p>
 
 <!-- Search bar -->
-
 <div class="mb-4">
-
-<input type="text" class="form-control" placeholder="Search contact...">
-
+  <input 
+    type="text" 
+    id="search-input"
+    placeholder="Search contact..." 
+    class="form-control"
+  >
 </div>
 
-<div class="row">
-
-{% for contact in contacts %}
-
-<div class="col-md-4 mb-4">
-
-<div class="card contact-card p-3">
-
-<h5>{{ contact.name }}</h5>
-
-<p>
-<i class="fa fa-phone"></i> {{ contact.phone }}
-</p>
-
-<p>
-<i class="fa fa-envelope"></i> {{ contact.email }}
-</p>
-
-<div class="d-flex gap-2">
-
-<a href="{% url 'detail' contact.id %}" class="btn btn-primary btn-sm">
-View
-</a>
-
-<a href="{% url 'edit' contact.id %}" class="btn btn-warning btn-sm">
-Edit
-</a>
-
-<a href="{% url 'delete' contact.id %}" class="btn btn-danger btn-sm">
-Delete
-</a>
-
+<div class="row" id="contacts-container">
+  {% for contact in contacts %}
+  <div class="col-md-4 mb-4 contact-item">
+    <div class="card contact-card p-3">
+      <h5>{{ contact.name }}</h5>
+      <p><i class="fa fa-phone"></i> {{ contact.phone }}</p>
+      <p><i class="fa fa-envelope"></i> {{ contact.email }}</p>
+      <div class="d-flex gap-2">
+        <a href="{% url 'detail' contact.id %}" class="btn btn-primary btn-sm">View</a>
+        <a href="{% url 'edit' contact.id %}" class="btn btn-warning btn-sm">Edit</a>
+        <a href="{% url 'delete' contact.id %}" class="btn btn-danger btn-sm">Delete</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>No contacts found.</p>
+  {% endfor %}
 </div>
 
-</div>
+<script>
+const input = document.getElementById('search-input');
+const container = document.getElementById('contacts-container');
 
-</div>
+input.addEventListener('input', () => {
+  const query = input.value.toLowerCase();
 
-{% endfor %}
+  const contacts = document.querySelectorAll('.contact-item');
+  contacts.forEach(contact => {
+    const name = contact.querySelector('h5').textContent.toLowerCase();
+    if (name.includes(query)) {
+      contact.style.display = 'block';
+    } else {
+      contact.style.display = 'none';
+    }
+  });
+});
+</script>
 
-</div>
-
-<!-- Floating Add Button -->
-
-<a href="{% url 'add_contact' %}" class="btn btn-primary floating-btn">
-+
-</a>
-
-{% endblock %}
+{% endblock content %}

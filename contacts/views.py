@@ -1,27 +1,43 @@
 from django.shortcuts import render, redirect
 from .models import Contact
+from .forms import ContactForm
+from django.db.models import Q
 
 
 def contact_list(request):
-    contacts = Contact.objects.all()
+    
+    query = request.GET.get('q')
+
+    if query:
+        contacts = Contact.objects.filter(
+            Q(name__icontains=query) |
+            Q(phone__icontains=query) |
+            Q(email__icontains=query)
+        )
+    else:
+        contacts = Contact.objects.all()
+
     return render(request, 'contacts/contact_list.html', {'contacts': contacts})
 
 
 def add_contact(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
+    if request.method == 'POST': 
+        form = ContactForm(request.POST)
 
-        Contact.objects.create(
-            name=name,
-            email=email,
-            phone=phone
-        )
+        if form.is_valid():
+            form.save()
+            
 
-        return redirect('contact_list')
 
-    return render(request, 'contacts/add_contact.html')
+            return redirect('contact_list')
+        else:
+            print(form.errors)
+        
+    else:
+        form = ContactForm()
+
+
+    return render(request, 'contacts/add_contact.html', {'form': form})
 
 
 def contact_detail(request, id):
