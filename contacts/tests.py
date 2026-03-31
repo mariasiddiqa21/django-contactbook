@@ -11,7 +11,7 @@ class ContactModelTest(TestCase):
         """Valid contact should pass full_clean without errors"""
         c = Contact(name="Maria", phone="0300123456", email="maria@example.com")
         try:
-            c.full_clean()  # runs model validators
+            c.full_clean()  
         except ValidationError:
             self.fail("Valid contact raised ValidationError")
 
@@ -66,7 +66,7 @@ class ContactViewTest(TestCase):
             "email": "testuser@example.com"
         }
         response = self.client.post(reverse('add_contact'), data)
-        self.assertEqual(response.status_code, 302)  # redirect
+        self.assertEqual(response.status_code, 302)  
         self.assertEqual(Contact.objects.count(), 3)
 
     
